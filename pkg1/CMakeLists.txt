@@ -9,8 +9,20 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(image_transport REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
-include_directories(include)
+# Specify the paths for Hikvision API and camera libraries
+find_library(HIKVISION_API_LIBRARY hikvision_api PATHS /usr/local/lib)
+find_library(MVCAMERA_LIBRARY MvCameraControl PATHS $ENV{MVCAM_COMMON_RUNENV}/64)
+
+
+# Include directories for Hikvision API and other dependencies
+include_directories(
+  /usr/local/include
+  ./include/hikvision
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -24,13 +36,42 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(my_node src/nodes.cpp)
-ament_target_dependencies(my_node rclcpp std_msgs)
+# Declare the executable
+# add_executable(image_publisher src/image_publisher.cpp src/utils.cpp)
 
-install(TARGETS
-  my_node
-  DESTINATION lib/${PROJECT_NAME}
+# # Use ament_target_dependencies to link dependencies
+# ament_target_dependencies(image_publisher
+#   rclcpp
+#   cv_bridge
+#   image_transport
+#   sensor_msgs
+#   std_msgs
+# )
+
+
+
+add_executable(sensors src/nodes.cpp src/image_publisher.cpp src/utils.cpp)
+ament_target_dependencies(sensors 
+rclcpp 
+std_msgs
+cv_bridge
+image_transport
+sensor_msgs
 )
 
+# Manually link additional libraries
+target_link_libraries(sensors
+  ${HIKVISION_API_LIBRARY}
+  ${MVCAMERA_LIBRARY}
+  pthread
+)
+
+
+# Install the executable
+install(TARGETS sensors
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME})
 
 ament_package()
