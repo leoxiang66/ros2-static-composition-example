@@ -86,7 +86,7 @@ void pop_thread(void *handle, image_transport::Publisher &image_pub)
         if (frame != NULL)
         {
             FrameInfo *frame_info = get_frame_info(&(frame->stFrameInfo));
-            print_frame_info(frame, true);
+            // print_frame_info(frame, true);
             publishImage(frame, image_pub, frame_info);
             delete frame;
             delete frame_info;

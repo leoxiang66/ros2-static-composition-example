@@ -6,7 +6,7 @@ from pathlib import Path
 ################### user configure parameters for ros2 start ###################
 camera_params = [
     {'exposure_time': 5000.0}, 
-    {'frequency': 20},
+    {'frequency': 10},
     {'gamma': 0.3},
     {'gain': 20.0},
     {'sync_point': 10000000}, # wait until the next `sync_point`

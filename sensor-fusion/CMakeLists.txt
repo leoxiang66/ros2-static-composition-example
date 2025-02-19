@@ -86,6 +86,7 @@ src/livox/parse_cfg_file/parse_cfg_file.cpp
 src/livox/parse_cfg_file/parse_livox_lidar_cfg.cpp
 src/livox/call_back/lidar_common_callback.cpp
 src/livox/call_back/livox_lidar_callback.cpp
+src/analysis/analysis.cpp
 )
 
 ament_target_dependencies(sensors 
