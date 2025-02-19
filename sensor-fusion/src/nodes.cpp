@@ -6,11 +6,7 @@
 
 
 int main(int argc, char** argv) {
-    std::cout << "Main function started!" << std::endl;
     rclcpp::init(argc, argv);
-    
-    RCLCPP_INFO(rclcpp::get_logger("main"), "Main function started!");
-
     auto node1 = std::make_shared<ImagePublisherNode>();
     auto node2 = std::make_shared<livox_ros::DriverNode>(rclcpp::NodeOptions());
 

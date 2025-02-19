@@ -24,7 +24,7 @@
  * @param ex_time The exposure time for the camera, in seconds.
  * @param image_pub A reference to the image transport publisher used to publish captured images.
  */
-void camera_work(unsigned int idx, double freq, uint64_t sync_point, float ex_time, image_transport::Publisher &image_pub);
+void camera_work(unsigned int idx, double freq, uint64_t sync_point, float ex_time,float gamma, float gain, image_transport::Publisher &image_pub);
 
 /**
  * @brief Publishes an image frame to the specified image transport publisher.

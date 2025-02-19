@@ -24,7 +24,7 @@ private:
     std::thread camera_thread_;
 
     // 在新线程中启动 camera_work
-    void start_camera_work(int frequency, int sync_point, float exposure_time, image_transport::Publisher image_pub);
+    void start_camera_work(int frequency, int sync_point, float exposure_time,float gamma, float gain, image_transport::Publisher image_pub);
 };
 
 #endif // IMAGE_PUBLISHER_NODE_HPP

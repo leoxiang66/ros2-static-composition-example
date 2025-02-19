@@ -1,7 +1,7 @@
 #include "utils.h"
 
 
-void camera_work(unsigned int idx, double freq, uint64_t sync_point,float ex_time ,image_transport::Publisher &image_pub)
+void camera_work(unsigned int idx, double freq, uint64_t sync_point,float ex_time ,float gamma, float gain,image_transport::Publisher &image_pub)
 {
     Timer timer(sync_point, freq);
 
@@ -18,6 +18,9 @@ void camera_work(unsigned int idx, double freq, uint64_t sync_point,float ex_tim
     set_pixel_format(cam, PixelType_Gvsp_BGR8_Packed);
     turn_on_IEEE1588(cam);
     wait_until_slave(cam);
+
+    set_gamma_correction(cam, gamma);
+    set_gain(cam, gain);
     
     set_trigger_mode_on(cam);
     set_trigger_source_to_action(cam);
